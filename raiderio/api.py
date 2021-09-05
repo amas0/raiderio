@@ -57,6 +57,15 @@ class RaiderIO:
             params['fields'] = fields
         return self._get_results(endpoint, params)
 
+    def get_guild_roster(self, region: str, realm: str, guild: str) -> dict:
+        endpoint = f'{BASE_URL}/api/guilds/roster'
+        params = {
+            'region': region,
+            'realm': realm,
+            'guild': guild,
+        }
+        return self._get_results(endpoint, params)
+
     def get_mythic_plus_affixes(self, region: str, locale: str = '') -> dict:
         endpoint = f'{BASE_URL}/api/v1/mythic-plus/affixes'
         params = {
@@ -128,5 +137,20 @@ class RaiderIO:
             'raid': raid,
             'difficulty': difficulty,
             'region': region
+        }
+        return self._get_results(endpoint, params)
+
+    def get_raid_instance_ranking(self, raid: str, difficulty: str, region: str, realm: str, faction: str = '',
+                                  page: int = 0, recent: bool = False, limit: int = 0) -> dict:
+        endpoint = f'{BASE_URL}/api/raids/instance-rankings'
+        params = {
+            'raid': raid,
+            'difficulty': difficulty,
+            'region': region,
+            'realm': realm,
+            'faction': faction,
+            'page': page,
+            'recent': recent,
+            'limit': limit
         }
         return self._get_results(endpoint, params)
