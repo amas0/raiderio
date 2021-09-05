@@ -9,6 +9,14 @@ as that will provide more details and clarity on how what fields are available a
 
 ### Installation
 
+Install directly from PyPi (recommended):
+
+```
+pip install raiderio
+```
+
+If you want to clone the repository to make your own changes:
+
 ```
 git clone https://github.com/amas0/raiderio.git
 pip install ./raiderio
