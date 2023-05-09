@@ -57,15 +57,6 @@ class RaiderIO:
             params['fields'] = fields
         return self._get_results(endpoint, params)
 
-    def get_guild_roster(self, region: str, realm: str, guild: str) -> dict:
-        endpoint = f'{BASE_URL}/api/guilds/roster'
-        params = {
-            'region': region,
-            'realm': realm,
-            'guild': guild,
-        }
-        return self._get_results(endpoint, params)
-
     def get_mythic_plus_affixes(self, region: str, locale: str = '') -> dict:
         endpoint = f'{BASE_URL}/api/v1/mythic-plus/affixes'
         params = {
@@ -84,6 +75,14 @@ class RaiderIO:
             params['realm'] = realm
         if scope:
             params['scope'] = scope
+        return self._get_results(endpoint, params)
+
+    def get_mythic_plus_run_details(self, season: str = '', id: int = 0) -> dict:
+        endpoint = f'{BASE_URL}/api/v1/mythic-plus/run-details'
+        params = {
+            'season': season,
+            'id': id,
+        }
         return self._get_results(endpoint, params)
 
     def get_mythic_plus_runs(self, region: str = '', season: str = '', dungeon: str = '',
@@ -107,6 +106,21 @@ class RaiderIO:
         params = {}
         if season:
             params['season'] = season
+        return self._get_results(endpoint, params)
+
+    def get_mythic_plus_season_cutoffs(self, season: str = '', region: str = '') -> dict:
+        endpoint = f'{BASE_URL}/api/v1/mythic-plus/season-cutoffs'
+        params = {
+            'region': region,
+            'season': season,
+        }
+        return self._get_results(endpoint, params)
+
+    def get_mythic_plus_static_data(self, expansion_id: int) -> dict:
+        endpoint = f'{BASE_URL}/api/v1/mythic-plus/static-data'
+        params = {
+            'expansion_id': expansion_id
+        }
         return self._get_results(endpoint, params)
 
     def get_raiding_boss_rankings(self, raid: str, boss: str, difficulty: str,
@@ -140,17 +154,25 @@ class RaiderIO:
         }
         return self._get_results(endpoint, params)
 
-    def get_raid_instance_ranking(self, raid: str, difficulty: str, region: str, realm: str, faction: str = '',
-                                  page: int = 0, recent: bool = False, limit: int = 0) -> dict:
-        endpoint = f'{BASE_URL}/api/raids/instance-rankings'
+    def get_raid_rankings(self, raid: str, difficulty: str, region: str, realm: str = '', guilds: str = '',
+                                  page: int = 0, limit: int = 50) -> dict:
+        endpoint = f'{BASE_URL}/api/v1/raiding/raid-rankings'
         params = {
             'raid': raid,
             'difficulty': difficulty,
             'region': region,
-            'realm': realm,
-            'faction': faction,
             'page': page,
-            'recent': recent,
             'limit': limit
+        }
+        if realm:
+            params['realm'] = realm
+        if guilds:
+            params['guilds'] = guilds
+        return self._get_results(endpoint, params)
+
+    def get_raid_static_data(self, expansion_id: int) -> dict:
+        endpoint = f'{BASE_URL}/api/v1/raiding/static-data'
+        params = {
+            'expansion_id': expansion_id
         }
         return self._get_results(endpoint, params)
