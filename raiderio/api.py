@@ -33,6 +33,12 @@ class RaiderIO:
             params['fields'] = fields
         return self._get_results(endpoint, params)
 
+    def get_periods(self) -> dict:
+        endpoint = f'{BASE_URL}/api/v1/periods'
+        params = {
+        }
+        return self._get_results(endpoint, params)
+
     def get_guild_boss_kill(self, region: str, realm: str, guild: str, raid: str, boss: str,
                             difficulty: str) -> dict:
         endpoint = f'{BASE_URL}/api/v1/guilds/boss-kill'
